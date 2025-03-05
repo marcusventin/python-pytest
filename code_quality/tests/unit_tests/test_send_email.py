@@ -17,10 +17,7 @@ def test_makes_expected_call(set_envs, recipient, templates):
         "Source": set_envs["SENDER"],
         "Destination": {"ToAddresses": [recipient]},
         "Message": {
-            "Subject": {
-                "Data": "SSM Parameter Values",
-                "Charset": "utf-8"
-            },
+            "Subject": {"Data": "SSM Parameter Values", "Charset": "utf-8"},
             "Body": {
                 "Text": {"Data": templates["txt"], "Charset": "utf-8"},
                 "Html": {"Data": templates["html"], "Charset": "utf-8"},

@@ -105,11 +105,11 @@ def build_templates(template_file: str, parameters: list[dict[str]]) -> dict[str
     Parameters
     ----------
     template_file: str
-        The name of a template file. Must exist in the "templates" directory with txt and
-        html extensions.
+        The name of a template file. Must exist in the "templates" directory with txt
+        and html extensions.
     parameters: list[dict[str]]
-        A list of dictionaries containing names and values of parameters to insert into a
-        template.
+        A list of dictionaries containing names and values of parameters to insert into
+        a template.
     """
 
     environment = get_environment()
@@ -140,8 +140,8 @@ def build_template(
     template_file: str
         The name of a file containing a Jinja2 template to be rendered.
     parameters: list[dict[str]]
-        A list of dictionaries containing names and values of parameters to insert into a
-        template.
+        A list of dictionaries containing names and values of parameters to insert into
+        a template.
     """
 
     template = environment.get_template(template_file)
@@ -172,10 +172,7 @@ def send_email(
         Source=os.environ["SENDER"],
         Destination={"ToAddresses": [recipient]},
         Message={
-            "Subject": {
-                "Data": "SSM Parameter Values",
-                "Charset": "utf-8"
-            },
+            "Subject": {"Data": "SSM Parameter Values", "Charset": "utf-8"},
             "Body": {
                 "Text": {"Data": templates["txt"], "Charset": "utf-8"},
                 "Html": {"Data": templates["html"], "Charset": "utf-8"},

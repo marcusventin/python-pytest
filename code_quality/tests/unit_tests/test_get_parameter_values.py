@@ -3,7 +3,6 @@ Unit tests for the "get_parameter_value" function. Designed to be run from the p
 top level.
 """
 
-from datetime import datetime
 from random import randint
 
 from code_quality.tests.tools import random_string, stub_boto_client
@@ -22,9 +21,6 @@ def test_returns_expected_value(parameters, parameter_names, caplog):
                 "Type": "SecureString",
                 "Value": parameter["value"],
                 "Version": randint(1, 100),
-                "LastModifiedDate": datetime(
-                    randint(2010, 2100), randint(1, 12), randint(1, 12)
-                ),
                 "ARN": random_string(12),
                 "DataType": "text",
             }
