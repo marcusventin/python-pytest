@@ -12,7 +12,8 @@ def test_calls_expected_functions(mocker, ssm_to_ses, templates, recipient, para
     """
 
     mock_build_templates = mocker.patch(
-        f"{ssm_to_ses}.build_templates", return_value=templates
+        f"{ssm_to_ses}.build_templates",
+        return_value=templates,
     )
     mock_send_email = mocker.patch(f"{ssm_to_ses}.send_email")
 

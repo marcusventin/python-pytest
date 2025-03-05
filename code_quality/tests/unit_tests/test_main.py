@@ -6,7 +6,11 @@ from script.ssm_to_ses import main
 
 
 def test_calls_expected_function(
-    mocker, ssm_to_ses, recipient, parameter_names, caplog
+    mocker,
+    ssm_to_ses,
+    recipient,
+    parameter_names,
+    caplog,
 ):
     """
     Does main call functions as expected and log an expected message?

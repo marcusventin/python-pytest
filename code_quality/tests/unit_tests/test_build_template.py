@@ -15,4 +15,4 @@ def test_returns_expected_response(environment, parameters):
 
     assert "Your parameter value" in response
     for parameter in parameters:
-        assert f"{parameter["name"]}: {parameter["value"]}" in response
+        assert f"{parameter['name']}: {parameter['value']}" in response

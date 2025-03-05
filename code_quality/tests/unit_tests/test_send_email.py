@@ -25,7 +25,10 @@ def test_makes_expected_call(set_envs, recipient, templates):
         },
     }
     client = stub_boto_client(
-        "ses", "send_email", send_email_response, expected_parameters
+        "ses",
+        "send_email",
+        send_email_response,
+        expected_parameters,
     )
 
     response = send_email(recipient, templates, client=client)

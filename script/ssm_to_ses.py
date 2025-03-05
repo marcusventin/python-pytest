@@ -17,10 +17,9 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-def main(recipient: str, parameter_names: list[str]):
+def main(recipient: str, parameter_names: list[str]) -> None:
     """
-    The function handler. Calls a function to collect SSM parameters and email to a
-    specified recipient.
+    Call a function to collect SSM parameters and email to a specified recipient.
 
     Parameters
     ----------
@@ -34,7 +33,7 @@ def main(recipient: str, parameter_names: list[str]):
     send_parameters(recipient, parameter_names)
 
 
-def send_parameters(recipient: str, parameter_names: list[str]):
+def send_parameters(recipient: str, parameter_names: list[str]) -> None:
     """
     Get a parameter value from the SSM Parameter Store then send via Simple Email
     Service.
@@ -52,7 +51,8 @@ def send_parameters(recipient: str, parameter_names: list[str]):
 
 
 def get_parameter_values(
-    parameter_names: list[str], client: boto3.client = None
+    parameter_names: list[str],
+    client: boto3.client = None,
 ) -> list[dict[str]]:
     """
     Get a parameter value from the SSM Parameter Store.
@@ -82,7 +82,7 @@ def get_parameter_values(
     ]
 
 
-def email_parameters(recipient: str, parameters: list[dict[str]]):
+def email_parameters(recipient: str, parameters: list[dict[str]]) -> None:
     """
     Generate an email template containing a parameter value and send using SES.
 
@@ -124,11 +124,13 @@ def get_environment(template_path: str = "templates/") -> Environment:
     Return a Jinja2 Environment pointed at a template directory.
     """
 
-    return Environment(loader=FileSystemLoader(template_path))
+    return Environment(loader=FileSystemLoader(template_path), autoescape=True)
 
 
 def build_template(
-    environment: Environment, template_file: str, parameters: list[dict[str]]
+    environment: Environment,
+    template_file: str,
+    parameters: list[dict[str]],
 ) -> str:
     """
     Render a template using Jinja2 and return as a string.
@@ -151,7 +153,9 @@ def build_template(
 
 
 def send_email(
-    recipient: str, templates: dict[str], client: boto3.client = None
+    recipient: str,
+    templates: dict[str],
+    client: boto3.client = None,
 ) -> dict:
     """
     Send an email to a recipient using AWS's Simple Email Service.

@@ -7,14 +7,19 @@ from script.ssm_to_ses import send_parameters
 
 
 def test_calls_expected_functions(
-    mocker, ssm_to_ses, parameters, recipient, parameter_names
+    mocker,
+    ssm_to_ses,
+    parameters,
+    recipient,
+    parameter_names,
 ):
     """
     Does send_parameters call expected functions with expected arguments?
     """
 
     mock_get_parameter_values = mocker.patch(
-        f"{ssm_to_ses}.get_parameter_values", return_value=parameters
+        f"{ssm_to_ses}.get_parameter_values",
+        return_value=parameters,
     )
     mock_email_parameters = mocker.patch(f"{ssm_to_ses}.email_parameters")
 

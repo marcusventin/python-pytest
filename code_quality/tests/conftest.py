@@ -59,18 +59,30 @@ def fixture_parameters() -> list[dict[str]]:
 
 
 @pytest.fixture(name="parameter_names")
-def fixture_parameter_names(parameters) -> list[str]:
+def fixture_parameter_names(parameters: list[dict[str]]) -> list[str]:
     """
     Return a list of strings representing mock SSM parameter names.
+
+    Parameters
+    ----------
+    parameters: list[dict[str]]
+        A list of dictionaries containing "name" and "value" values representing mock
+        parameter data.
     """
 
     return [parameter["name"] for parameter in parameters]
 
 
 @pytest.fixture(name="parameter_values")
-def fixture_parameter_values(parameters) -> str:
+def fixture_parameter_values(parameters: list[dict[str]]) -> str:
     """
     Return a list of strings representing mock SSM parameter values.
+
+    Parameters
+    ----------
+    parameters: list[dict[str]]
+        A list of dictionaries containing "name" and "value" values representing mock
+        parameter data.
     """
 
     return [parameter["value"] for parameter in parameters]
@@ -82,7 +94,7 @@ def fixture_jinja2_environment() -> Environment:
     Return a Jinja2 Environment pointed at a templates directory.
     """
 
-    return Environment(loader=FileSystemLoader("script/templates/"))
+    return Environment(loader=FileSystemLoader("script/templates/"), autoescape=True)
 
 
 @pytest.fixture(name="templates")

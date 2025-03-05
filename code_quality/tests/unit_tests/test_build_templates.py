@@ -16,12 +16,14 @@ def test_returns_expected_values(mocker, ssm_to_ses, environment, parameters):
     """
 
     mock_get_environment = mocker.patch(
-        f"{ssm_to_ses}.get_environment", return_value=environment
+        f"{ssm_to_ses}.get_environment",
+        return_value=environment,
     )
     txt_template = random_string(8)
     html_template = random_string(8)
     mock_build_template = mocker.patch(
-        f"{ssm_to_ses}.build_template", side_effect=[txt_template, html_template]
+        f"{ssm_to_ses}.build_template",
+        side_effect=[txt_template, html_template],
     )
     mock_template_file = random_string(6)
 
@@ -34,5 +36,5 @@ def test_returns_expected_values(mocker, ssm_to_ses, environment, parameters):
         [
             call(environment, f"{mock_template_file}.txt", parameters),
             call(environment, f"{mock_template_file}.html", parameters),
-        ]
+        ],
     )

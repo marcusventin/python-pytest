@@ -25,14 +25,17 @@ def test_returns_expected_value(parameters, parameter_names, caplog):
                 "DataType": "text",
             }
             for parameter in parameters
-        ]
+        ],
     }
     expected_parameters = {
         "Names": parameter_names,
         "WithDecryption": True,
     }
     client = stub_boto_client(
-        "ssm", "get_parameters", get_parameters_response, expected_parameters
+        "ssm",
+        "get_parameters",
+        get_parameters_response,
+        expected_parameters,
     )
 
     response = get_parameter_values(parameter_names, client=client)

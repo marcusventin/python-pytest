@@ -20,12 +20,15 @@ def random_string(string_length: int) -> str:
     """
 
     return "".join(
-        random.choices(string.ascii_letters + string.digits, k=string_length)
+        random.choices(string.ascii_letters + string.digits, k=string_length),
     )
 
 
 def stub_boto_client(
-    service: str, method: str, response: dict, expected_parameters: dict
+    service: str,
+    method: str,
+    response: dict,
+    expected_parameters: dict,
 ) -> boto3.client:
     """
     Stub a boto3 service interaction using the boto Stubber.
