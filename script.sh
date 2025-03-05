@@ -1,0 +1,1 @@
+coverage run -m pytest code_quality/tests/unit_tests/* --log-cli-level=info && coverage report --omit "code_quality/**/*" -m

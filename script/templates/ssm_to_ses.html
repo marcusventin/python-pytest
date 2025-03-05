@@ -1,0 +1,6 @@
+Your parameter value{% if parameters|length > 1 %}s are{% else %} is{% endif %}:
+<ul>
+{% for parameter in parameters %}
+    <li>{{ parameter["name"] }}: {{ parameter["value"] }}</li>
+{% endfor %}
+</ul>
