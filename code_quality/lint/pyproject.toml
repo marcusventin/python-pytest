@@ -55,10 +55,22 @@ ignore = [
     "D202",
     "D203",
     "D205",
+    "D206",
     "D213",
     "D200",
+    "D300",
     "D413",
-    "D212"
+    "D212",
+    "W191",
+    "E111",
+    "E114",
+    "E117",
+    "Q000",
+    "Q001",
+    "Q002",
+    "Q003",
+    "COM812",
+    "COM819",
 ]
 
 [tool.ruff.lint.per-file-ignores]
@@ -76,3 +88,8 @@ ignore = [
 "code_quality/tests/**/tools.py" = [
     "S311"
 ]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+docstring-code-format = true
