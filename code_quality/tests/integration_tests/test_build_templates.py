@@ -19,5 +19,5 @@ def test_returns_expected_response(mocker, ssm_to_ses, environment, parameters):
 
     mock_get_environment.assert_called_once_with()
     for parameter in parameters:
-        assert f"{parameter['name']}: {parameter['value']}" in response["html"]
-        assert f"{parameter['name']}: {parameter['value']}" in response["txt"]
+        assert f"{parameter["name"]}: {parameter["value"]}" in response["txt"]
+        assert f"<li>{parameter["name"]}: {parameter["value"]}</li>" in response["html"]

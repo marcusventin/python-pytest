@@ -93,3 +93,8 @@ ignore = [
 quote-style = "double"
 indent-style = "space"
 docstring-code-format = true
+
+[tool.coverage.report]
+exclude_also = [
+    'if __name__ == .__main__.:',
+]
