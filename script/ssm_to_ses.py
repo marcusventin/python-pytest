@@ -183,7 +183,7 @@ def send_email(
             },
         },
     )
-    logger.debug("Send email response: %", response)
+    logger.debug("Send email response: %s", response)
     return response
 
 
