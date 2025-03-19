@@ -15,6 +15,8 @@ echo -e "\033[1;32m**** INSTALLING TEST DEPENDENCIES ****\033[0m"
 python3 -m pip install -r ./code_quality/tests/requirements/requirements.txt
 echo -e "\033[1;32m**** RUNNING UNIT TESTS ****\033[0m"
 coverage run -m pytest code_quality/tests/unit_tests/* --log-cli-level=info && coverage report --omit "code_quality/**/*" -m
+echo -e "\033[1;32m**** RUNNING INTEGRATION TESTS ****\033[0m"
+coverage run -m pytest code_quality/tests/integration_tests/* --log-cli-level=info
 if [[ $? -ne 0 ]]; then
     exit $?
 fi
