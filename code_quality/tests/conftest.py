@@ -30,8 +30,11 @@ def fixture_set_environment_variables(monkeypatch) -> dict[str]:
     env_vars = {
         "AWS_ACCESS_KEY_ID": random_string(16),
         "AWS_SECRET_ACCESS_KEY": random_string(16),
+        "AWS_SECURITY_TOKEN": random_string(16),
+        "AWS_SESSION_TOKEN": random_string(16),
         "AWS_DEFAULT_REGION": "eu-west-2",
-        "SENDER": random_string(8),
+        "SENDER": f"{random_string(8)}@{random_string(5)}.com",
+        "TEMPLATE_PATH": "script/templates/",
     }
     monkeypatch.setattr(os, "environ", env_vars)
     return env_vars
@@ -43,7 +46,7 @@ def fixture_recipient() -> str:
     Return a string representing a mock email address for a recipient.
     """
 
-    return random_string(10)
+    return f"{random_string(10)}@{random_string(8)}.com"
 
 
 @pytest.fixture(name="parameters")
