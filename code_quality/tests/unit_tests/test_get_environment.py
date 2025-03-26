@@ -13,6 +13,6 @@ def test_returns_expected_object():
     Does get_environment return a jinja2.Environment object?
     """
 
-    response = get_environment("script/templates/")
+    response = get_environment()
 
     assert isinstance(response, Environment)

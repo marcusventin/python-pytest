@@ -119,12 +119,14 @@ def build_templates(template_file: str, parameters: list[dict[str]]) -> dict[str
     }
 
 
-def get_environment(template_path: str = "templates/") -> Environment:
+def get_environment() -> Environment:
     """
     Return a Jinja2 Environment pointed at a template directory.
     """
 
-    return Environment(loader=FileSystemLoader(template_path), autoescape=True)
+    return Environment(
+        loader=FileSystemLoader(os.environ["TEMPLATE_PATH"]), autoescape=True
+    )
 
 
 def build_template(
