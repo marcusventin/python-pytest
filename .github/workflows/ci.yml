@@ -14,7 +14,7 @@ jobs:
       - name: set-up-python
         uses: actions/setup-python@v5
         with:
-          python-version: ${PYTHON_VERSION}
+          python-version: $PYTHON_VERSION
       - name: build-virtual-env
         run: |
           echo -e "\033[1;32m**** BUILDING VIRTUAL ENVIRONMENT ****\033[0m"
@@ -37,7 +37,7 @@ jobs:
       - name: set-up-python
         uses: actions/setup-python@v5
         with:
-          python-version: ${PYTHON_VERSION}
+          python-version: $PYTHON_VERSION
       - name: build-virtual-env
         run: |
           echo -e "\033[1;32m**** BUILDING VIRTUAL ENVIRONMENT ****\033[0m"
