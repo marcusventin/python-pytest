@@ -16,7 +16,7 @@ jobs:
       - name: build-virtual-env
         run: |
           echo -e "\033[1;32m**** BUILDING VIRTUAL ENVIRONMENT ****\033[0m"
-          venv venv
+          python3 -m venv venv
           source venv/bin/
       - name: install-lint-dependencies
         run: |
