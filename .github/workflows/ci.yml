@@ -9,6 +9,7 @@ jobs:
   python-ruff-lint:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - uses: ./.github/workflows/build_virtual_env.yml
         with:
           python-version: ${PYTHON_VERSION}
@@ -23,6 +24,7 @@ jobs:
   python-unit-test:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - uses: ./.github/workflows/build_virtual_env.yml
         with:
           python-version: ${PYTHON_VERSION}
