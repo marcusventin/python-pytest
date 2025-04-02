@@ -9,9 +9,18 @@ jobs:
   python-ruff-lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: ./.github/workflows/_build_virtual_env.yml
+      - name: checkout-code
+        uses: actions/checkout@v4
+      - name: set-up-python
+        uses: actions/setup-python@v5
         with:
           python-version: ${PYTHON_VERSION}
+      - name: build-virtual-env
+        run: |
+          echo -e "\033[1;32m**** BUILDING VIRTUAL ENVIRONMENT ****\033[0m"
+          python3 -m venv venv
+          source venv/bin/activate
+          pip install --upgrade pip
       - name: install-lint-dependencies
         run: |
           echo -e "\033[1;32m**** INSTALLING LINT DEPENDENCIES ****\033[0m"
@@ -23,9 +32,18 @@ jobs:
   python-unit-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: ./.github/actions/_build_virtual_env.yml
+      - name: checkout-code
+        uses: actions/checkout@v4
+      - name: set-up-python
+        uses: actions/setup-python@v5
         with:
           python-version: ${PYTHON_VERSION}
+      - name: build-virtual-env
+        run: |
+          echo -e "\033[1;32m**** BUILDING VIRTUAL ENVIRONMENT ****\033[0m"
+          python3 -m venv venv
+          source venv/bin/activate
+          pip install --upgrade pip
       - name: install-project-dependencies
         run: |
           echo -e "\033[1;32m**** INSTALLING PROJECT DEPENDENCIES ****\033[0m"
