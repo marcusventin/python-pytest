@@ -9,8 +9,7 @@ jobs:
   python-ruff-lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: .github/actions/build_virtual_env
+      - uses: ./.github/workflows/_build_virtual_env.yml
         with:
           python-version: ${PYTHON_VERSION}
       - name: install-lint-dependencies
@@ -24,8 +23,7 @@ jobs:
   python-unit-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: .github/actions/build_virtual_env
+      - uses: ./.github/actions/_build_virtual_env.yml
         with:
           python-version: ${PYTHON_VERSION}
       - name: install-project-dependencies
