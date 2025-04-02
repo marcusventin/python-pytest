@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: ./.github/workflows/build_virtual_env.yml
+      - uses: ./.github/actions/build_virtual_env/action.yml
         with:
           python-version: ${PYTHON_VERSION}
       - name: install-lint-dependencies
@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: ./.github/workflows/build_virtual_env.yml
+      - uses: ./.github/actions/build_virtual_env/action.yml
         with:
           python-version: ${PYTHON_VERSION}
       - name: install-project-dependencies
