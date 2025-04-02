@@ -30,6 +30,8 @@ jobs:
           echo -e "\033[1;32m**** RUNNING RUFF LINT ****\033[0m"
           ruff check --config "${PYPROJECT_PATH}"
   python-unit-test:
+    needs:
+      - python-ruff-lint
     runs-on: ubuntu-latest
     steps:
       - name: checkout-code
@@ -57,6 +59,8 @@ jobs:
           echo -e "\033[1;32m**** RUNNING UNIT TESTS ****\033[0m"
           coverage run -m pytest -vv code_quality/tests/unit_tests/* --log-cli-level="${LOG_LEVEL}" && coverage report --omit "code_quality/**/*" --rcfile "${PYPROJECT_PATH}" -m
   python-integration-test:
+    needs:
+      - python-unit-test
     runs-on: ubuntu-latest
     steps:
       - name: checkout-code
@@ -84,6 +88,8 @@ jobs:
           echo -e "\033[1;32m**** RUNNING INTEGRATION TESTS ****\033[0m"
           coverage run -m pytest -vv code_quality/tests/integration_tests/* --log-cli-level="${LOG_LEVEL}"
   python-end-to-end-test:
+    needs:
+      - python-integration-test
     runs-on: ubuntu-latest
     steps:
       - name: checkout-code
