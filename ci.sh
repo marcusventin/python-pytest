@@ -26,7 +26,7 @@ coverage run -m pytest -vv code_quality/tests/end_to_end_tests/* --log-cli-level
 if [[ $? -ne 0 ]]; then
     exit $?
 fi
-# echo -e "\033[1;32m**** DESTROYING TEST ENVIRONMENT ****\033[0m"
-# deactivate
-# rm -rf venv
+echo -e "\033[1;32m**** DESTROYING TEST ENVIRONMENT ****\033[0m"
+deactivate
+rm -rf venv
 echo -e "\033[1;32m**** TESTS COMPLETE ****\033[0m"
