@@ -24,5 +24,5 @@ def test_sends_expected_email(recipient, parameter_names, set_envs, parameter_va
     assert message.destinations["ToAddresses"] == [recipient]
     assert message.subject == "SSM Parameter Values"
     assert "Your parameter value" in message.body
-    for name, value in zip(parameter_names, parameter_values):
+    for name, value in zip(parameter_names, parameter_values, strict=True):
         assert f"<li>{name}: {value}</li>" in message.body
