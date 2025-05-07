@@ -27,12 +27,6 @@ repos:
         entry: coverage run -m pytest
         args: [-vv, --log-cli-level=info, code_quality/tests/unit_tests/]
         language: python
-        additional_dependencies:
-          - boto3==1.37.6
-          - Jinja2==3.1.5
-          - coverage==7.6.12
-          - pytest==8.3.5
-          - pytest-mock==3.14.0
         pass_filenames: false
         always_run: true
       - id: pytest-unit-test-coverage
@@ -60,7 +54,6 @@ repos:
         name: pytest-end-to-end-test
         entry: coverage run -m pytest -vv code_quality/tests/end_to_end_tests/ --log-cli-level="info"
         language: python
-        additional_dependencies: ["moto==5.1.1"]
         pass_filenames: false
         always_run: true
       - id: pytest-end-to-end-test-coverage
