@@ -3,10 +3,12 @@ description: Build a virtual environment
 runs:
   using: composite
   steps:
+    - name: log-action
+      shell: bash
+      run: echo -e "\033[1;32m**** BUILDING VIRTUAL ENVIRONMENT ****\033[0m"
     - name: build-virtual-env
       shell: python
       run: |
-        echo -e "\033[1;32m**** BUILDING VIRTUAL ENVIRONMENT ****\033[0m"
         python3 -m venv venv
         source venv/bin/activate
         pip install --upgrade pip
