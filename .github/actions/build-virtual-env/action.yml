@@ -14,6 +14,7 @@ runs:
       with:
         python-version: ${{ inputs.PYTHON_VERSION }}
     - name: build-virtual-env
+      shell: bash
       run: |
         echo -e "\033[1;32m**** BUILDING VIRTUAL ENVIRONMENT ****\033[0m"
         python3 -m venv venv
