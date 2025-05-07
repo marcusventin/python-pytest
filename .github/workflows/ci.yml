@@ -16,7 +16,9 @@ jobs:
         with:
           python-version: ${{ env.PYTHON_VERSION }}
       - name: build-virtual-env
-        uses: ./.github/actions/build_virtual_env
+        uses: ./.github/actions/build-virtual-env
+        with:
+          PYTHON_VERSION: ${{ env.PYTHON_VERSION }}
       - name: install-lint-dependencies
         run: |
           echo -e "\033[1;32m**** INSTALLING LINT DEPENDENCIES ****\033[0m"
