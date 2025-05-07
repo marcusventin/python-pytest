@@ -2,7 +2,7 @@ name: build-virtual-env
 description: Build virtual env for CI
 
 inputs:
-  python-version:
+  PYTHON_VERSION:
     description: Python version
     required: true
 
