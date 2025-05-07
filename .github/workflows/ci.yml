@@ -11,22 +11,18 @@ jobs:
     steps:
       - name: checkout-code
         uses: actions/checkout@v4
-      - name: set-up-python
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
       - name: build-virtual-env
-        run: |
-          echo -e "\033[1;32m**** BUILDING VIRTUAL ENVIRONMENT ****\033[0m"
-          python3 -m venv venv
-          source venv/bin/activate
-          pip install --upgrade pip
+        uses: ./.github/actions/build-virtual-env
+        with:
+          PYTHON_VERSION: ${{ env.PYTHON_VERSION }}
       - name: install-lint-dependencies
         run: |
+          source venv/bin/activate
           echo -e "\033[1;32m**** INSTALLING LINT DEPENDENCIES ****\033[0m"
           pip install -r ./code_quality/lint/requirements.txt
       - name: ruff-lint
         run: |
+          source venv/bin/activate
           echo -e "\033[1;32m**** RUNNING RUFF LINT ****\033[0m"
           ruff check --config "${PYPROJECT_PATH}"
   python-unit-test:
@@ -36,26 +32,13 @@ jobs:
     steps:
       - name: checkout-code
         uses: actions/checkout@v4
-      - name: set-up-python
-        uses: actions/setup-python@v5
+      - name: build-test-env
+        uses: ./.github/actions/install-test-dependencies
         with:
-          python-version: ${{ env.PYTHON_VERSION }}
-      - name: build-virtual-env
-        run: |
-          echo -e "\033[1;32m**** BUILDING VIRTUAL ENVIRONMENT ****\033[0m"
-          python3 -m venv venv
-          source venv/bin/activate
-          pip install --upgrade pip
-      - name: install-project-dependencies
-        run: |
-          echo -e "\033[1;32m**** INSTALLING PROJECT DEPENDENCIES ****\033[0m"
-          pip install -r ./script/requirements.txt
-      - name: install-test-dependencies
-        run: |
-          echo -e "\033[1;32m**** INSTALLING TEST DEPENDENCIES ****\033[0m"
-          pip install -r ./code_quality/tests/requirements/requirements.txt
+          PYTHON_VERSION: ${{ env.PYTHON_VERSION }}
       - name: run-unit-tests
         run: |
+          source venv/bin/activate
           echo -e "\033[1;32m**** RUNNING UNIT TESTS ****\033[0m"
           coverage run -m pytest -vv code_quality/tests/unit_tests/* --log-cli-level="${LOG_LEVEL}" && coverage report --omit "code_quality/**/*" --rcfile "${PYPROJECT_PATH}" -m
   python-integration-test:
@@ -65,26 +48,13 @@ jobs:
     steps:
       - name: checkout-code
         uses: actions/checkout@v4
-      - name: set-up-python
-        uses: actions/setup-python@v5
+      - name: build-test-env
+        uses: ./.github/actions/install-test-dependencies
         with:
-          python-version: ${{ env.PYTHON_VERSION }}
-      - name: build-virtual-env
-        run: |
-          echo -e "\033[1;32m**** BUILDING VIRTUAL ENVIRONMENT ****\033[0m"
-          python3 -m venv venv
-          source venv/bin/activate
-          pip install --upgrade pip
-      - name: install-project-dependencies
-        run: |
-          echo -e "\033[1;32m**** INSTALLING PROJECT DEPENDENCIES ****\033[0m"
-          pip install -r ./script/requirements.txt
-      - name: install-test-dependencies
-        run: |
-          echo -e "\033[1;32m**** INSTALLING TEST DEPENDENCIES ****\033[0m"
-          pip install -r ./code_quality/tests/requirements/requirements.txt
+          PYTHON_VERSION: ${{ env.PYTHON_VERSION }}
       - name: run-integration-tests
         run: |
+          source venv/bin/activate
           echo -e "\033[1;32m**** RUNNING INTEGRATION TESTS ****\033[0m"
           coverage run -m pytest -vv code_quality/tests/integration_tests/* --log-cli-level="${LOG_LEVEL}"
   python-end-to-end-test:
@@ -94,28 +64,17 @@ jobs:
     steps:
       - name: checkout-code
         uses: actions/checkout@v4
-      - name: set-up-python
-        uses: actions/setup-python@v5
+      - name: build-test-env
+        uses: ./.github/actions/install-test-dependencies
         with:
-          python-version: ${{ env.PYTHON_VERSION }}
-      - name: build-virtual-env
-        run: |
-          echo -e "\033[1;32m**** BUILDING VIRTUAL ENVIRONMENT ****\033[0m"
-          python3 -m venv venv
-          source venv/bin/activate
-          pip install --upgrade pip
-      - name: install-project-dependencies
-        run: |
-          echo -e "\033[1;32m**** INSTALLING PROJECT DEPENDENCIES ****\033[0m"
-          pip install -r ./script/requirements.txt
+          PYTHON_VERSION: ${{ env.PYTHON_VERSION }}
       - name: install-test-dependencies
         run: |
-          echo -e "\033[1;32m**** INSTALLING TEST DEPENDENCIES ****\033[0m"
-          pip install -r ./code_quality/tests/requirements/requirements.txt
+          source venv/bin/activate
           echo -e "\033[1;32m**** INSTALLING END-TO-END TEST DEPENDENCIES ****\033[0m"
           pip install -r ./code_quality/tests/requirements/end_to_end/requirements.txt
       - name: run-end-to-end-tests
         run: |
+          source venv/bin/activate
           echo -e "\033[1;32m**** RUNNING END-TO-END TESTS ****\033[0m"
           coverage run -m pytest -vv code_quality/tests/end_to_end_tests/* --log-cli-level="${LOG_LEVEL}" && coverage report --omit "code_quality/**/*" --rcfile "${PYPROJECT_PATH}" -m
-  

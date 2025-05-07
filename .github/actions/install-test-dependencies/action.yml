@@ -1,0 +1,31 @@
+name: install-test-dependencies
+description: Install dependencies for testing
+
+inputs:
+  PYTHON_VERSION:
+    description: Python version
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: set-up-python
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ inputs.PYTHON_VERSION }}
+    - name: build-virtual-env
+      uses: ./.github/actions/build-virtual-env
+      with:
+        PYTHON_VERSION: ${{ inputs.PYTHON_VERSION }}
+    - name: install-project-dependencies
+      shell: bash
+      run: |
+        source venv/bin/activate
+        echo -e "\033[1;32m**** INSTALLING PROJECT DEPENDENCIES ****\033[0m"
+        pip install -r ./script/requirements.txt
+    - name: install-test-dependencies
+      shell: bash
+      run: |
+        source venv/bin/activate
+        echo -e "\033[1;32m**** INSTALLING TEST DEPENDENCIES ****\033[0m"
+        pip install -r ./code_quality/tests/requirements/requirements.txt
