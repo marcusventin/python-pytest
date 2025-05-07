@@ -1,0 +1,68 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: no-commit-to-branch
+      - id: requirements-txt-fixer
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.11.7
+    hooks:
+      - id: ruff
+        args: [--fix, --config, ./code_quality/pyproject.toml]
+      - id: ruff-format
+        args: [--config, ./code_quality/pyproject.toml]
+  - repo: https://github.com/psf/black
+    rev: 25.1.0
+    hooks:
+      - id: black
+  - repo: local
+    hooks:
+      - id: pytest-unit-test
+        stages: [pre-push]
+        types: [python]
+        name: pytest-unit-test
+        entry: coverage run -m pytest
+        args: [-vv, --log-cli-level=info, code_quality/tests/unit_tests/]
+        language: python
+        pass_filenames: false
+        always_run: true
+      - id: pytest-unit-test-coverage
+        stages: [pre-push]
+        types: [python]
+        name: pytest-unit-test-coverage
+        entry: coverage report
+        args: [--omit=code_quality/**/*, --rcfile=./code_quality/pyproject.toml, -m]
+        language: python
+        pass_filenames: false
+        always_run: true
+        verbose: true  
+      - id: pytest-integration-test
+        stages: [pre-push]
+        types: [python]
+        name: pytest-integration-test
+        entry: coverage run -m pytest   
+        args: [-vv, --log-cli-level=info, code_quality/tests/integration_tests/]
+        language: python
+        pass_filenames: false
+        always_run: true
+      - id: pytest-end-to-end-test
+        stages: [pre-push]
+        types: [python]
+        name: pytest-end-to-end-test
+        entry: coverage run -m pytest -vv code_quality/tests/end_to_end_tests/ --log-cli-level="info"
+        language: python
+        pass_filenames: false
+        always_run: true
+      - id: pytest-end-to-end-test-coverage
+        stages: [pre-push]
+        types: [python]
+        name: pytest-end-to-end-test-coverage
+        entry: coverage report
+        args: [--omit=code_quality/**/*, --rcfile=./code_quality/pyproject.toml, -m]
+        language: python
+        pass_filenames: false
+        always_run: true
+        verbose: true

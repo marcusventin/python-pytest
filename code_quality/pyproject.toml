@@ -1,4 +1,5 @@
 [tool.ruff]
+target-version = "py312"
 line-length = 88
 indent-width = 4
 
@@ -90,7 +91,7 @@ ignore = [
 ]
 
 [tool.ruff.format]
-quote-style = "double"
+quote-style = "preserve"
 indent-style = "space"
 docstring-code-format = true
 
