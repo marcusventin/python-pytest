@@ -4,6 +4,7 @@ runs:
   using: composite
   steps:
     - name: build-virtual-env
+      shell: python
       run: |
         echo -e "\033[1;32m**** BUILDING VIRTUAL ENVIRONMENT ****\033[0m"
         python3 -m venv venv
